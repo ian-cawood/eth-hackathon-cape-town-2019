@@ -7,7 +7,7 @@ const page1 = () => {
     <div>
       <header className={styles.App}>Voting for Supplier</header>
       <section>
-        <table class="ui celled table">
+        <table className="ui celled table">
           <thead>
             <tr>
               <th>Supplier Name</th>
@@ -30,15 +30,15 @@ const page1 = () => {
           </tbody>
         </table>
         <article>
-          <form class="ui form">
-            <div class="field">
+          <form className="ui form">
+            <div className="field">
               Selected value: <b />
             </div>
-            <div class="field">
-              <div class="ui radio checkbox">
+            <div className="field">
+              <div className="ui radio checkbox">
                 <input
                   type="checkbox"
-                  class="hidden"
+                  className="hidden"
                   name="checkboxRadioGroup"
                   readonly=""
                   tabindex="0"
@@ -47,11 +47,11 @@ const page1 = () => {
                 <label>Bic</label>
               </div>
             </div>
-            <div class="field" />
-            <div class="ui radio checkbox">
+            <div className="field" />
+            <div className="ui radio checkbox">
               <input
                 type="checkbox"
-                class="hidden"
+                className="hidden"
                 name="checkboxRadioGroup"
                 readonly=""
                 tabindex="0"
@@ -59,11 +59,11 @@ const page1 = () => {
               />
               <label>Waltons</label>
             </div>
-            <div class="field" />
-            <div class="ui radio checkbox">
+            <div className="field" />
+            <div className="ui radio checkbox">
               <input
                 type="checkbox"
-                class="hidden"
+                className="hidden"
                 name="checkboxRadioGroup"
                 readonly=""
                 tabindex="0"
@@ -73,7 +73,10 @@ const page1 = () => {
             </div>
           </form>
         </article>
-        <button class="ui button">Submit</button>
+        <button className="ui button">Submit</button>
+        <article>
+          Days Left: <div className="ui red circular label">2</div>
+        </article>
       </section>
     </div>
   )
