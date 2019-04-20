@@ -19,6 +19,7 @@ contract Treasury is Initializable {
   Supplier[] public suppliers;
 
   mapping(address => uint) public supplierVote;
+  
   uint public supplierVoteEndTimeStamp;
 
   event open_supplier_vote_event();
@@ -55,7 +56,12 @@ contract Treasury is Initializable {
   }
 
   function voteForSupplier(address _supplierAddress) public {
-    // require(now < supplierVoteEndTimeStamp, "Voting has ended.");
+    require(schoolSupplierVoted[msg.sender] == false, 'Already voted');
+    require(now < supplierVoteEndTimeStamp, 'Voting has ended.');
+
     supplierVote[_supplierAddress] ++;
+    schoolSupplierVoted[msg.sender] = true;
   }
+
+  mapping(address => bool) private schoolSupplierVoted;
 }

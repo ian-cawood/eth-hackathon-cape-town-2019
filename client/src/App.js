@@ -44,7 +44,6 @@ class App extends Component {
         let ganacheAccounts = []
         try {
           ganacheAccounts = await this.getGanacheAddresses()
-          console.log(ganacheAccounts);
         } catch (e) {
           console.log('Ganache is not running')
         }
@@ -71,8 +70,6 @@ class App extends Component {
             )
           }
         }
-        console.log(Treasury)
-        console.log(instanceTreasury)
         if (instanceTreasury) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
@@ -117,11 +114,11 @@ class App extends Component {
     const response = await contract.methods.openSupplierVote(+ new Date()).call();
 
     try {
-      const tryVote = await contract.methods.voteForSupplier('0x70618e839F7d695D8c8241A1090E3AeA447DFA00').call();
+      const tryVote = await contract.methods.voteForSupplier('0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF').send({from: '0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf'});
       console.log(tryVote);
     }
     catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
 
     console.log(response);
