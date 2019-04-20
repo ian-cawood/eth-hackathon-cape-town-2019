@@ -1,14 +1,14 @@
 import React from 'react'
 
-import styles from '../App.module.scss'
-
 const page3 = () => {
   return (
     <div>
-      <header className={styles.App}>Books Delivery Vote</header>
+      <header>
+        <h3>Books Delivery Vote</h3>
+      </header>
       <section>
         <article>
-          Books delivered: <div className="ui red circular label">2</div>
+          Books delivered: <div className="page3-label">2</div>
         </article>
         <article>
           <form className="ui form">
@@ -44,7 +44,7 @@ const page3 = () => {
         </article>
         <button className="ui button">Submit</button>
         <article>
-          Days Left: <div className="ui red circular label">2</div>
+          Days Left: <div className="page3-label">2</div>
         </article>
       </section>
     </div>

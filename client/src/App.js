@@ -148,10 +148,18 @@ class App extends Component {
       <div>
         <Page1
           suppliers={[{ name: 'Bic', votes: 2, address: 'asdf' }, { name: 'Hello', votes: 4, address: 'rtf' }]}
+          handleSubmit={() => {
+            console.log('submission complete')
+          }}
         />
         ,
         <Page2 />,
-        <Page3 />,
+        <Page3
+          handleSubmit={() => {
+            console.log('submission complete')
+          }}
+        />
+        ,
         <Page4 />
       </div>
     )
