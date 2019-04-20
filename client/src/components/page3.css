@@ -5,15 +5,40 @@ section {
   color: #1d1128;
 }
 
-.page2-header {
+.page3-header {
   display: inline-block;
   margin: 2rem 0 3rem 0;
 }
 
+.page3-container {
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid #1d1128;
+  margin: 1rem 30rem;
+  padding: 1rem 4rem;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+.page3-checkboxes {
+  flex-direction: row;
+}
+
+.checkbox {
+  padding: 0 2rem;
+}
+
+.btn {
+  margin: 2rem 2rem 0 2rem;
+  color: white;
+  background-color: #5941a9;
+  border-radius: 4rem;
+}
+
 .page3-label {
   display: inline-block;
-  background-color: #5941a9;
-  border: 0.02rem solid #5941a9;
+  background-color: rgba(89, 65, 169, 0.7);
+  border: 0.02rem solid rgba(89, 65, 169, 0.75);
   margin: 0 5rem 1rem 5rem;
   padding: 0.5rem;
   color: white;

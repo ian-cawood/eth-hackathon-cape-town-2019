@@ -38,8 +38,8 @@ section {
 
 .page2-label {
   display: inline-block;
-  background-color: #5941a9;
-  border: 0.02rem solid #5941a9;
+  background-color: rgba(89, 65, 169, 0.7);
+  border: 0.02rem solid rgba(89, 65, 169, 0.7);
   margin: 0 5rem 1rem 5rem;
   padding: 0.5rem;
   color: white;

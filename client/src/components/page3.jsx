@@ -1,51 +1,49 @@
 import React from 'react'
 
+import './page3.css'
+
 const page3 = () => {
   return (
     <div>
-      <header>
-        <h3>Books Delivery Vote</h3>
-      </header>
       <section>
-        <article>
-          Books delivered: <div className="page3-label">2</div>
-        </article>
-        <article>
-          <form className="ui form">
-            <div className="field">
-              Selected value: <b />
-            </div>
-            <div className="field">
-              <div className="ui radio checkbox">
+        <header className="page3-header">
+          <h1 class="ui header">
+            <i aria-hidden="true" class="graduation cap mini icon" />
+            <div class="content">STEP 3</div>
+          </h1>
+        </header>
+        <main className="page3-wrapper">
+          <article className="page3-container">
+            <h3>Have you received your books?</h3>
+            <div className="page3-checkboxes">
+              <div class="ui radio checkbox">
                 <input
                   type="checkbox"
-                  className="hidden"
-                  name="checkboxRadioGroup"
+                  class="hidden"
                   readonly=""
                   tabindex="0"
-                  value="this"
                 />
                 <label>Yes</label>
               </div>
+              <div class="ui radio checkbox">
+                <input
+                  type="checkbox"
+                  class="hidden"
+                  readonly=""
+                  tabindex="0"
+                />
+                <label>No</label>
+              </div>
             </div>
-            <div className="field" />
-            <div className="ui radio checkbox">
-              <input
-                type="checkbox"
-                className="hidden"
-                name="checkboxRadioGroup"
-                readonly=""
-                tabindex="0"
-                value="that"
-              />
-              <label>No</label>
-            </div>
-          </form>
-        </article>
-        <button className="ui button">Submit</button>
-        <article>
-          Days Left: <div className="page3-label">2</div>
-        </article>
+            <button className="btn">Submit</button>
+          </article>
+          <article className="page3-container">
+            <h3>Books delivered: </h3>
+            <div className="page3-label">2</div>
+            <h3>Days Left:</h3>
+            <div className="page3-label">2</div>
+          </article>
+        </main>
       </section>
     </div>
   )
