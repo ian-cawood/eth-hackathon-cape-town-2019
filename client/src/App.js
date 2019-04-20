@@ -17,20 +17,19 @@ class App extends Component {
     route: window.location.pathname.replace('/', ''),
   }
 
-
   getGanacheAddresses = async () => {
     if (!this.ganacheProvider) {
-      this.ganacheProvider = getGanacheWeb3();
+      this.ganacheProvider = getGanacheWeb3()
     }
     if (this.ganacheProvider) {
-      return await this.ganacheProvider.eth.getAccounts();
+      return await this.ganacheProvider.eth.getAccounts()
     }
-    return [];
+    return []
   }
 
   componentDidMount = async () => {
-    const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
-    let Treasury = {};
+    const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled
+    let Treasury = {}
     try {
       Treasury = require('../../contracts/Treasury.sol')
     } catch (e) {
@@ -97,7 +96,7 @@ class App extends Component {
           })
         }
 
-        this.openSupplierVote();
+        this.openSupplierVote()
       }
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -109,9 +108,9 @@ class App extends Component {
   }
 
   openSupplierVote = async () => {
-    const { contract } = this.state;
+    const { contract } = this.state
 
-    const response = await contract.methods.openSupplierVote(+ new Date()).call();
+    const response = await contract.methods.openSupplierVote(+new Date()).call()
 
     try {
       const tryVote = await contract.methods.voteForSupplier('0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF').send({from: '0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf'});
@@ -121,7 +120,7 @@ class App extends Component {
       console.log(e.message);
     }
 
-    console.log(response);
+    console.log(response)
   }
 
   getCount = async () => {
@@ -135,7 +134,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Page1 suppliers={[{ name: 'Bic', votes: 2 }, { name: 'Hello', votes: 4 }]}/>,
+        <Page1
+          suppliers={[{ name: 'Bic', votes: 2 }, { name: 'Hello', votes: 4 }]}
+        />
+        ,
         <Page2 />,
         <Page3 />,
         <Page4 />
