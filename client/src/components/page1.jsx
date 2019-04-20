@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from '../App.module.scss'
 
-const page1 = () => {
+const page1 = ({ suppliers }) => {
   return (
     <div>
       <header className={styles.App}>Voting for Supplier</header>
@@ -15,18 +15,14 @@ const page1 = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td data-label="Name">Bic</td>
-              <td data-label="NumberOfVotes">24</td>
-            </tr>
-            <tr>
-              <td data-label="Name">Waltons</td>
-              <td data-label="NumberOfVotes">26</td>
-            </tr>
-            <tr>
-              <td data-label="Name">Protea Books</td>
-              <td data-label="NumberOfVotes">24</td>
-            </tr>
+            {suppliers.map(supplier => {
+              return (
+                <tr>
+                  <td data-label="Name">{supplier.name}</td>
+                  <td data-label="NumberOfVotes">{supplier.votes}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
         <article>
@@ -34,43 +30,21 @@ const page1 = () => {
             <div className="field">
               Selected value: <b />
             </div>
-            <div className="field">
-              <div className="ui radio checkbox">
-                <input
-                  type="checkbox"
-                  className="hidden"
-                  name="checkboxRadioGroup"
-                  readonly=""
-                  tabindex="0"
-                  value="this"
-                />
-                <label>Bic</label>
+            {suppliers.map(supplier =>
+              <div className="field">
+                <div className="ui radio checkbox">
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    name="checkboxRadioGroup"
+                    readonly=""
+                    tabindex="0"
+                    value="this"
+                  />
+                  <label>{supplier.name}</label>
+                </div>
               </div>
-            </div>
-            <div className="field" />
-            <div className="ui radio checkbox">
-              <input
-                type="checkbox"
-                className="hidden"
-                name="checkboxRadioGroup"
-                readonly=""
-                tabindex="0"
-                value="that"
-              />
-              <label>Waltons</label>
-            </div>
-            <div className="field" />
-            <div className="ui radio checkbox">
-              <input
-                type="checkbox"
-                className="hidden"
-                name="checkboxRadioGroup"
-                readonly=""
-                tabindex="0"
-                value="that"
-              />
-              <label>Protea Books</label>
-            </div>
+            )}
           </form>
         </article>
         <button className="ui button">Submit</button>
