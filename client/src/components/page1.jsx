@@ -1,55 +1,63 @@
 import React from 'react'
 
-import styles from '../App.module.scss'
+import './page1.css'
 
 const page1 = ({ suppliers }) => {
   return (
     <div>
-      <header className={styles.App}>Voting for Supplier</header>
+      <header className="page1-header">
+        <h1 class="ui header">
+          <i aria-hidden="true" class="graduation cap mini icon" />
+          <div class="content">STEP 1</div>
+        </h1>
+      </header>
       <section>
-        <table className="ui celled table">
-          <thead>
-            <tr>
-              <th>Supplier Name</th>
-              <th>Number of Votes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {suppliers.map(supplier => {
-              return (
-                <tr>
-                  <td data-label="Name">{supplier.name}</td>
-                  <td data-label="NumberOfVotes">{supplier.votes}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-        <article>
-          <form className="ui form">
-            <div className="field">
-              Selected value: <b />
-            </div>
+        <article className="page1-table">
+          <table className="ui celled table">
+            <thead>
+              <tr>
+                <th>
+                  <h3>Supplier Name</h3>
+                </th>
+                <th>
+                  <h3>Number of Votes</h3>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {suppliers.map(supplier => {
+                return (
+                  <tr>
+                    <td data-label="Name">{supplier.name}</td>
+                    <td data-label="NumberOfVotes">{supplier.votes}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </article>
+        <article className="page1-container">
+          <h3> Vote for a supplier:</h3>
+          <div className="page1-checkbox">
             {suppliers.map(supplier => (
-              <div className="field">
-                <div className="ui radio checkbox">
-                  <input
-                    type="checkbox"
-                    className="hidden"
-                    name="checkboxRadioGroup"
-                    readonly=""
-                    tabindex="0"
-                    value="this"
-                  />
-                  <label>{supplier.name}</label>
-                </div>
+              <div className="ui radio checkbox ">
+                <input
+                  type="checkbox"
+                  className="hidden"
+                  name="checkboxRadioGroup"
+                  readonly=""
+                  tabindex="0"
+                  value="this"
+                />
+                <label>{supplier.name}</label>
               </div>
             ))}
-          </form>
+          </div>
+          <button className="btn">Submit</button>
         </article>
-        <button className="ui button">Submit</button>
-        <article>
-          Days Left: <div className="ui red circular label">2</div>
+        <article className="page1-container">
+          <h3>Days Left:</h3>
+          <div className="page1-label">2</div>
         </article>
       </section>
     </div>

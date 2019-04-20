@@ -1,0 +1,50 @@
+section {
+  text-align: center;
+  background-color: #eee;
+  padding: 2rem;
+  color: #1d1128;
+}
+
+.page1-table {
+  margin: 0 30rem;
+  border: 1px solid #1d1128;
+  border-radius: 0.28571429rem;
+}
+
+.page1-header {
+  display: flex;
+  padding: 2rem 0 1rem 0;
+  justify-content: center;
+  background-color: #eee;
+}
+
+.page1-container {
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid #1d1128;
+  margin: 1rem 30rem;
+  padding: 1rem 4rem;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+.page1-checkbox {
+  display: inline-block;
+}
+
+.btn {
+  margin: 2rem 2rem 0 2rem;
+  color: white;
+  background-color: #5941a9;
+  border-radius: 4rem;
+}
+
+.page1-label {
+  display: inline-block;
+  background-color: rgba(89, 65, 169, 0.7);
+  border: 0.02rem solid rgba(89, 65, 169, 0.75);
+  margin: 0 5rem 1rem 5rem;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 4rem;
+}
