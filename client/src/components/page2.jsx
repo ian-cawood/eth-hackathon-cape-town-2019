@@ -1,9 +1,15 @@
 import React from 'react'
+import './page2.css'
 
 const page2 = () => {
   return (
     <section>
-      <header>Winning Supplier</header>
+      <header>
+        <h2 class="ui header">
+          <i aria-hidden="true" class="graduation cap mini icon" />
+          <div class="content">Learn More</div>
+        </h2>
+      </header>
       <main>
         <p>Winning Supplier: SUPPLIER X</p>
         <p>Deadline to complete</p>
