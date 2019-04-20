@@ -17,9 +17,11 @@ contract Treasury is Initializable {
 
   School[] public schools;
   Supplier[] public suppliers;
-  mapping(address => uint) public supplierVote;
 
-  event open_vote_event();
+  mapping(address => uint) public supplierVote;
+  uint public supplierVoteEndTimeStamp;
+
+  event open_supplier_vote_event();
 
   function initialize(
     address[] memory schoolAddresses,
@@ -40,21 +42,20 @@ contract Treasury is Initializable {
     }
   }
 
-  function openVote() public {
+  function openSupplierVote(uint _endTimeStamp) public {
     uint supplierLength = suppliers.length;
 
     for (uint i=0; i<supplierLength; i++) {
       supplierVote[suppliers[i]._address] = 0;
     }
 
-    emit open_vote_event();
+    supplierVoteEndTimeStamp = _endTimeStamp;
+
+    emit open_supplier_vote_event();
   }
 
-  //We'll upgrade the contract with this function after deploying it
-  //Function to decrease the counter
-  // function decreaseCounter(uint256 amount) public returns (bool) {
-  //   require(count > amount, "Cannot be lower than 0");
-  //   count = count - amount;
-  //   return true;
-  // }
+  function voteForSupplier(address _supplierAddress) public {
+    require(now < supplierVoteEndTimeStamp, "Voting has ended.");
+    supplierVote[_supplierAddress] ++;
+  }
 }

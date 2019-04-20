@@ -26,12 +26,4 @@ contract Counter is Initializable {
   function increaseCounter(uint256 amount) public {
     count = count + amount;
   }
-
-  //We'll upgrade the contract with this function after deploying it
-  //Function to decrease the counter
-  // function decreaseCounter(uint256 amount) public returns (bool) {
-  //   require(count > amount, "Cannot be lower than 0");
-  //   count = count - amount;
-  //   return true;
-  // }
 }
