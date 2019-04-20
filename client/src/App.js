@@ -14,8 +14,21 @@ class App extends Component {
     route: window.location.pathname.replace('/', ''),
   }
 
+
+  getGanacheAddresses = async () => {
+    if (!this.ganacheProvider) {
+      this.ganacheProvider = getGanacheWeb3();
+    }
+    if (this.ganacheProvider) {
+      return await this.ganacheProvider.eth.getAccounts();
+    }
+    return [];
+  }
+
   componentDidMount = async () => {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
+    const ganacheAccounts = await this.getGanacheAddresses();
+    console.log(ganacheAccounts);
     let Counter = {};
     let Wallet = {};
     let Treasury = {};
@@ -84,6 +97,8 @@ class App extends Component {
             isMetaMask
           });
         }
+
+        this.openSupplierVote();
       }
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -94,10 +109,26 @@ class App extends Component {
     }
   };
 
+  openSupplierVote = async () => {
+    const { contract } = this.state;
+
+    const response = await contract.methods.openSupplierVote(+ new Date()).call();
+
+    try {
+      const tryVote = await contract.methods.voteForSupplier('0x70618e839F7d695D8c8241A1090E3AeA447DFA00').call();
+      console.log(tryVote);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    console.log(response);
+  }
+
   getCount = async () => {
     const { contract } = this.state;
     // Get the value from the contract to prove it worked.
-    const response = await contract.methods.getCounter().call();
+    const response = await contract.methods.getCounter(new Date()).call();
     // Update state with the result.
     this.setState({ count: response });
   };
