@@ -55,7 +55,7 @@ contract Treasury is Initializable {
   }
 
   function voteForSupplier(address _supplierAddress) public {
-    assert(now < supplierVoteEndTimeStamp, "Voting has ended.");
+    // require(now < supplierVoteEndTimeStamp, "Voting has ended.");
     supplierVote[_supplierAddress] ++;
   }
 }

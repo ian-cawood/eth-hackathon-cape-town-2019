@@ -30,10 +30,6 @@ class App extends Component {
 
   componentDidMount = async () => {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
-    const ganacheAccounts = await this.getGanacheAddresses();
-    console.log(ganacheAccounts);
-    let Counter = {};
-    let Wallet = {};
     let Treasury = {};
     try {
       Treasury = require('../../contracts/Treasury.sol')
@@ -48,6 +44,7 @@ class App extends Component {
         let ganacheAccounts = []
         try {
           ganacheAccounts = await this.getGanacheAddresses()
+          console.log(ganacheAccounts);
         } catch (e) {
           console.log('Ganache is not running')
         }
@@ -141,7 +138,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Page1 />,
+        <Page1 suppliers={[{ name: 'Bic', votes: 2 }, { name: 'Hello', votes: 4 }]}/>,
         <Page2 />,
         <Page3 />,
         <Page4 />
