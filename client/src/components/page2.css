@@ -1,8 +1,47 @@
-html,
-body {
-  overflow: hidden;
+section {
+  text-align: center;
+  background-color: #eee;
+  padding: 2rem;
+  color: #1d1128;
 }
 
-.header {
-  text-align: center;
+.page2-winner {
+  color: #5941a9;
+  font-weight: bold;
+}
+
+.page2-header {
+  display: inline-block;
+  margin: 2rem 0 3rem 0;
+}
+
+.page2-container1 {
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid #1d1128;
+  margin: 0 30rem;
+  padding: 2rem 4rem;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+.page2-container2 {
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid #1d1128;
+  margin: 1rem 30rem;
+  padding: 1rem 4rem;
+  justify-content: center;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+.page2-label {
+  display: inline-block;
+  background-color: #5941a9;
+  border: 0.02rem solid #5941a9;
+  margin: 0 5rem 1rem 5rem;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 4rem;
 }
