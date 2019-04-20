@@ -36,9 +36,11 @@ class App extends Component {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
     let Counter = {};
     let Wallet = {};
+    let Treasury = {};
     try {
       Counter = require("../../contracts/Counter.sol");
       Wallet = require("../../contracts/Wallet.sol");
+      Treasury = require('../../contracts/Treasury.sol');
     } catch (e) {
       console.log(e);
     }
@@ -62,6 +64,7 @@ class App extends Component {
         let balance = accounts.length > 0 ? await web3.eth.getBalance(accounts[0]): web3.utils.toWei('0');
         balance = web3.utils.fromWei(balance, 'ether');
         let instance = null;
+        let treasuryInstance = null;
         let instanceWallet = null;
         let deployedNetwork = null;
         if (Counter.networks) {
@@ -73,6 +76,18 @@ class App extends Component {
             );
           }
         }
+
+        if (Treasury.networks) {
+          deployedNetwork = Treasury.networks[networkId.toString()];
+          if (deployedNetwork) {
+            treasuryInstance = new web3.eth.Contract(
+              Treasury.abi,
+              deployedNetwork && deployedNetwork.address,
+            );
+          }
+        }
+        console.log(Treasury);
+        console.log(treasuryInstance);
         if (Wallet.networks) {
           deployedNetwork = Wallet.networks[networkId.toString()];
           if (deployedNetwork) {
