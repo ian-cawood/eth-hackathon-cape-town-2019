@@ -96,7 +96,10 @@ class App extends Component {
           })
         }
 
-        this.openSupplierVote()
+        // await this.openSupplierVote();
+        // const supplier = await this.voteForSupplier('0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf', '0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF');
+        // console.log(supplier)
+        // await this.getWinningSupplier();
       }
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -107,35 +110,44 @@ class App extends Component {
     }
   }
 
+  getWinningSupplier = async () => {
+    const { contract } = this.state;
+    try {
+      return contract.methods.getWinningSupplier().call();
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  voteForSupplier = async (fromAddress, supplierAddress) => {
+    const { contract } = this.state;
+
+    try {
+      return contract
+              .methods
+              .voteForSupplier(supplierAddress)
+              .send({ from: fromAddress });
+    } catch (e) {
+      alert(e.message)
+    }
+  }
+
   openSupplierVote = async () => {
     const { contract } = this.state
 
-    const response = await contract.methods.openSupplierVote(+new Date()).call()
-
     try {
-      const tryVote = await contract.methods.voteForSupplier('0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF').send({from: '0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf'});
-      console.log(tryVote);
+      return contract.methods.openSupplierVote((+new Date()) + 1000).call();
     }
     catch (e) {
-      console.log(e.message);
+      alert(e.message);
     }
-
-    console.log(response)
-  }
-
-  getCount = async () => {
-    const { contract } = this.state
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.getCounter().call()
-    // Update state with the result.
-    this.setState({ count: response })
   }
 
   render() {
     return (
       <div>
         <Page1
-          suppliers={[{ name: 'Bic', votes: 2 }, { name: 'Hello', votes: 4 }]}
+          suppliers={[{ name: 'Bic', votes: 2, address: 'asdf' }, { name: 'Hello', votes: 4, address: 'rtf' }]}
         />
         ,
         <Page2 />,

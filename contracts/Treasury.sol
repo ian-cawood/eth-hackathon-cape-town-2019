@@ -63,5 +63,22 @@ contract Treasury is Initializable {
     schoolSupplierVoted[msg.sender] = true;
   }
 
+  function getWinningSupplier() public view returns (Supplier memory) {
+    require(now > supplierVoteEndTimeStamp, 'Voting has not ended.');
+
+    uint supplierLength = suppliers.length;
+    uint max = 0;
+    uint winner = 0;
+
+    for (uint i; i < supplierLength; i++) {
+      if (supplierVote[suppliers[i]._address] > max) {
+        winner = i;
+        max = supplierVote[suppliers[i]._address];
+      }
+    }
+
+    return suppliers[winner];
+  }
+
   mapping(address => bool) private schoolSupplierVoted;
 }
