@@ -111,22 +111,21 @@ class App extends Component {
   }
 
   getWinningSupplier = async () => {
-    const { contract } = this.state;
+    const { contract } = this.state
     try {
-      return contract.methods.getWinningSupplier().call();
+      return contract.methods.getWinningSupplier().call()
     } catch (e) {
-      alert(e.message);
+      alert(e.message)
     }
   }
 
   voteForSupplier = async (fromAddress, supplierAddress) => {
-    const { contract } = this.state;
+    const { contract } = this.state
 
     try {
-      return contract
-              .methods
-              .voteForSupplier(supplierAddress)
-              .send({ from: fromAddress });
+      return contract.methods
+        .voteForSupplier(supplierAddress)
+        .send({ from: fromAddress })
     } catch (e) {
       alert(e.message)
     }
@@ -136,10 +135,9 @@ class App extends Component {
     const { contract } = this.state
 
     try {
-      return contract.methods.openSupplierVote((+new Date()) + 1000).call();
-    }
-    catch (e) {
-      alert(e.message);
+      return contract.methods.openSupplierVote(+new Date() + 1000).call()
+    } catch (e) {
+      alert(e.message)
     }
   }
 
@@ -147,19 +145,20 @@ class App extends Component {
     return (
       <div>
         <Page1
-          suppliers={[{ name: 'Bic', votes: 2, address: 'asdf' }, { name: 'Hello', votes: 4, address: 'rtf' }]}
+          suppliers={[
+            { name: 'Bic', votes: 2, address: 'asdf' },
+            { name: 'Hello', votes: 4, address: 'rtf' },
+          ]}
           handleSubmit={() => {
             console.log('submission complete')
           }}
         />
-        ,
-        <Page2 />,
+        <Page2 />
         <Page3
           handleSubmit={() => {
             console.log('submission complete')
           }}
         />
-        ,
         <Page4 />
       </div>
     )
