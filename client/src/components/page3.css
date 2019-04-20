@@ -1,0 +1,21 @@
+section {
+  text-align: center;
+  background-color: #eee;
+  padding: 2rem;
+  color: #1d1128;
+}
+
+.page2-header {
+  display: inline-block;
+  margin: 2rem 0 3rem 0;
+}
+
+.page3-label {
+  display: inline-block;
+  background-color: #5941a9;
+  border: 0.02rem solid #5941a9;
+  margin: 0 5rem 1rem 5rem;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 4rem;
+}

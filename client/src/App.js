@@ -113,11 +113,12 @@ class App extends Component {
     const response = await contract.methods.openSupplierVote(+new Date()).call()
 
     try {
-      const tryVote = await contract.methods.voteForSupplier('0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF').send({from: '0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf'});
-      console.log(tryVote);
-    }
-    catch (e) {
-      console.log(e.message);
+      const tryVote = await contract.methods
+        .voteForSupplier('0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF')
+        .send({ from: '0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf' })
+      console.log(tryVote)
+    } catch (e) {
+      console.log(e.message)
     }
 
     console.log(response)
@@ -136,10 +137,18 @@ class App extends Component {
       <div>
         <Page1
           suppliers={[{ name: 'Bic', votes: 2 }, { name: 'Hello', votes: 4 }]}
+          handleSubmit={() => {
+            console.log('submission complete')
+          }}
         />
         ,
         <Page2 />,
-        <Page3 />,
+        <Page3
+          handleSubmit={() => {
+            console.log('submission complete')
+          }}
+        />
+        ,
         <Page4 />
       </div>
     )

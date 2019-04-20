@@ -30,7 +30,7 @@ const page1 = ({ suppliers }) => {
             <div className="field">
               Selected value: <b />
             </div>
-            {suppliers.map(supplier =>
+            {suppliers.map(supplier => (
               <div className="field">
                 <div className="ui radio checkbox">
                   <input
@@ -44,7 +44,7 @@ const page1 = ({ suppliers }) => {
                   <label>{supplier.name}</label>
                 </div>
               </div>
-            )}
+            ))}
           </form>
         </article>
         <button className="ui button">Submit</button>
