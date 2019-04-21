@@ -16,6 +16,8 @@ class App extends Component {
     accounts: null,
     contract: null,
     loading: true,
+    delivered: null,
+    winningSupplier: null,
     suppliers: [],
     route: window.location.pathname.replace('/', ''),
   }
@@ -103,11 +105,41 @@ class App extends Component {
 
         await this.getSuppliers()
         this.setState({ loading: false })
+        function timeout(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms))
+        }
 
-        // await this.openSupplierVote();
-        // const supplier = await this.voteForSupplier('0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf', '0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF');
-        // console.log(supplier)
-        // await this.calculateChosenSupplier();
+        try {
+          await this.openSupplierVote()
+
+          await timeout(7000)
+
+          await this.voteForSupplier(
+            '0xF14F87C1197dDeaFdFb468703bc95deb7777DaF5',
+            '0x8f523dE20479c2747792e2b6dcC5DeB7B0e6eFf0'
+          )
+
+          const winningSupplier = await this.calculateChosenSupplier()
+
+          this.setState({ winningSupplier })
+
+          await timeout(7000)
+
+          await this.voteOnDelivered(
+            '0xF14F87C1197dDeaFdFb468703bc95deb7777DaF5',
+            650,
+            600
+          )
+
+          const delivered = await this.completeContract()
+
+          this.setState({ delivered })
+
+          await timeout(7000)
+          console.log(delivered)
+        } catch (e) {
+          console.log(e)
+        }
       }
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -116,6 +148,12 @@ class App extends Component {
       )
       console.error(error)
     }
+  }
+
+  completeContract = async () => {
+    const { contract } = this.state
+
+    return contract.methods.completeContract().call()
   }
 
   getSuppliers = async () => {
@@ -149,10 +187,18 @@ class App extends Component {
     }
   }
 
+  voteOnDelivered = async (fromAddress, delivered, expected) => {
+    const { contract } = this.state
+
+    return contract.methods
+      .voteOnDelivered(delivered, expected)
+      .send({ from: fromAddress })
+  }
+
   openSupplierVote = async () => {
     const { contract } = this.state
 
-    const votingEndDate = moment().add(10, 'minutes')
+    const votingEndDate = moment().add(1, 'minutes')
     console.log(votingEndDate.unix())
     console.log(moment().unix())
 
@@ -166,10 +212,10 @@ class App extends Component {
   }
 
   render() {
-    const { loading, suppliers } = this.state
+    const { loading, suppliers, winningSupplier, delivered } = this.state
     return (
       <div>
-        {!loading && suppliers && (
+        {!loading && !winningSupplier && suppliers && (
           <Page1
             suppliers={suppliers}
             handleSubmit={supplierAddress =>
@@ -178,20 +224,23 @@ class App extends Component {
             daysToVotingClose={'22 days'}
           />
         )}
+        {winningSupplier && delivered === null && (
+          <Page2
+            winningSupplier={winningSupplier}
+            deadlineDate={{ date: '21 April 2019' }}
+            daysToCompletion={'22 days'}
+          />
+        )}
 
-        <Page2
-          winningSupplier={{ name: 'Bic' }}
-          deadlineDate={{ date: '21 April 2019' }}
-          daysToCompletion={'22 days'}
-        />
-        <Page3
+        {delivered && <Page4 outcome={'success'} />}
+        {delivered === false && <Page4 outcome={'failure'} />}
+        {/* <Page3
           handleSubmit={() => {
             console.log('submission complete')
           }}
           booksDeliveredPercentage={'70%'}
           daysToVotingClose={'22 days'}
-        />
-        <Page4 outcome={'failure'} />
+        /> */}
       </div>
     )
   }

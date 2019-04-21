@@ -48,8 +48,9 @@ const page1 = ({ suppliers, handleSubmit, daysToVotingClose }) => {
                   readonly=""
                   tabindex="0"
                   value="this"
+                  id={supplier.name}
                 />
-                <label>{supplier.name}</label>
+                <label for={supplier.name}>{supplier.name}</label>
               </div>
             ))}
           </div>

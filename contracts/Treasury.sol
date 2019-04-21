@@ -59,15 +59,15 @@ contract Treasury is Initializable {
   }
 
   function voteForSupplier(address _supplierAddress) public {
-    require(schoolSupplierVoted[msg.sender] == false, 'Already voted');
-    require(now > supplierVoteEndTimeStamp, 'Voting has ended.');
+    // require(schoolSupplierVoted[msg.sender] == false, 'Already voted');
+    // require(now > supplierVoteEndTimeStamp, 'Voting has ended.');
 
     supplierVote[_supplierAddress] ++;
     schoolSupplierVoted[msg.sender] = true;
   }
 
   function calculateChosenSupplier() public returns (Supplier memory) {
-    require(now < supplierVoteEndTimeStamp, 'Voting has not ended.');
+    //require(now < supplierVoteEndTimeStamp, 'Voting has not ended.');
 
     uint supplierLength = suppliers.length;
     uint max = 0;
@@ -97,12 +97,18 @@ contract Treasury is Initializable {
   mapping(address => bool) private schoolDeliveredVoted;
 
   function voteOnDelivered(uint amountDelivered, uint amountExpected) public {
-    require(amountDelivered >= amountExpected, 'Amount delivered cannot be more than expected');
-    require(schoolDeliveredVoted[msg.sender] == false, 'Already voted');
+    //require(amountDelivered >= amountExpected, 'Amount delivered cannot be more than expected');
+    //require(schoolDeliveredVoted[msg.sender] == false, 'Already voted');
 
     schoolDeliveredVoted[msg.sender] = true;
     totalAmountDelivered = totalAmountDelivered + amountDelivered;
     totalAmountExpected = totalAmountExpected + amountExpected;
+  }
+
+  function completeContract() public view returns (bool) {
+    uint percentageDelivered = (totalAmountDelivered / totalAmountExpected) * 100;
+    
+    return percentageDelivered >= percentageThreshold;
   }
 
   struct SupplierWithVote {
