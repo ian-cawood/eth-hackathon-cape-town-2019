@@ -15,6 +15,8 @@ class App extends Component {
     web3: null,
     accounts: null,
     contract: null,
+    loading: true,
+    suppliers: [],
     route: window.location.pathname.replace('/', ''),
   }
 
@@ -31,6 +33,7 @@ class App extends Component {
   componentDidMount = async () => {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled
     let Treasury = {}
+    this.setState({ loading: true })
     try {
       Treasury = require('../../contracts/Treasury.sol')
     } catch (e) {
@@ -70,6 +73,7 @@ class App extends Component {
             )
           }
         }
+
         if (instanceTreasury) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
@@ -97,7 +101,8 @@ class App extends Component {
           })
         }
 
-        this.getSuppliers();
+        await this.getSuppliers()
+        this.setState({ loading: false })
 
         // await this.openSupplierVote();
         // const supplier = await this.voteForSupplier('0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf', '0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF');
@@ -118,7 +123,7 @@ class App extends Component {
 
     const suppliers = await contract.methods.getSuppliers().call()
 
-    console.log(suppliers)
+    this.setState({ suppliers })
   }
 
   calculateChosenSupplier = async () => {
@@ -161,18 +166,19 @@ class App extends Component {
   }
 
   render() {
+    const { loading, suppliers } = this.state
     return (
       <div>
-        <Page1
-          suppliers={[
-            { name: 'Bic', votes: 2, address: 'asdf' },
-            { name: 'Hello', votes: 4, address: 'rtf' },
-          ]}
-          handleSubmit={() => {
-            console.log('submission complete')
-          }}
-          daysToVotingClose={'22 days'}
-        />
+        {!loading && suppliers && (
+          <Page1
+            suppliers={suppliers}
+            handleSubmit={supplierAddress =>
+              this.voteForSupplier('someaddress', supplierAddress)
+            }
+            daysToVotingClose={'22 days'}
+          />
+        )}
+
         <Page2
           winningSupplier={{ name: 'Bic' }}
           deadlineDate={{ date: '21 April 2019' }}
