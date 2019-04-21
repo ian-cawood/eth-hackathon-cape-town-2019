@@ -97,6 +97,8 @@ class App extends Component {
           })
         }
 
+        this.getSuppliers();
+
         // await this.openSupplierVote();
         // const supplier = await this.voteForSupplier('0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf', '0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF');
         // console.log(supplier)
@@ -109,6 +111,14 @@ class App extends Component {
       )
       console.error(error)
     }
+  }
+
+  getSuppliers = async () => {
+    const { contract } = this.state
+
+    const suppliers = await contract.methods.getSuppliers().call()
+
+    console.log(suppliers)
   }
 
   calculateChosenSupplier = async () => {
