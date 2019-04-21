@@ -28,9 +28,12 @@ contract Treasury is Initializable {
     address[] memory schoolAddresses,
     string[] memory schoolNames,
     address[] memory supplierAddresses,
-    string[] memory supplierNames
+    string[] memory supplierNames,
+    uint _percentageThreshold
   ) public initializer {
+    require(_percentageThreshold <= 100 && _percentageThreshold >= 0, 'Percentage must be between 0 and 100(inclusive)');
     uint schoolLength = schoolAddresses.length;
+    percentageThreshold = _percentageThreshold;
 
     for (uint i=0; i<schoolLength; i++) {
       schools.push(School(schoolAddresses[i], schoolNames[i]));
@@ -57,14 +60,14 @@ contract Treasury is Initializable {
 
   function voteForSupplier(address _supplierAddress) public {
     require(schoolSupplierVoted[msg.sender] == false, 'Already voted');
-    require(now < supplierVoteEndTimeStamp, 'Voting has ended.');
+    require(now > supplierVoteEndTimeStamp, 'Voting has ended.');
 
     supplierVote[_supplierAddress] ++;
     schoolSupplierVoted[msg.sender] = true;
   }
 
-  function getWinningSupplier() public view returns (Supplier memory) {
-    require(now > supplierVoteEndTimeStamp, 'Voting has not ended.');
+  function calculateChosenSupplier() public returns (Supplier memory) {
+    require(now < supplierVoteEndTimeStamp, 'Voting has not ended.');
 
     uint supplierLength = suppliers.length;
     uint max = 0;
@@ -77,8 +80,28 @@ contract Treasury is Initializable {
       }
     }
 
-    return suppliers[winner];
+    chosenSupplier = suppliers[winner];
+
+    return chosenSupplier;
+  }
+
+  function getChosenSupplier() public view returns (Supplier memory) {
+    return chosenSupplier;
   }
 
   mapping(address => bool) private schoolSupplierVoted;
+  uint private percentageThreshold;
+  Supplier public chosenSupplier;
+  uint public totalAmountDelivered;
+  uint public totalAmountExpected;
+  mapping(address => bool) private schoolDeliveredVoted;
+
+  function voteOnDelivered(uint amountDelivered, uint amountExpected) public {
+    require(amountDelivered >= amountExpected, 'Amount delivered cannot be more than expected');
+    require(schoolDeliveredVoted[msg.sender] == false, 'Already voted');
+
+    schoolDeliveredVoted[msg.sender] = true;
+    totalAmountDelivered = totalAmountDelivered + amountDelivered;
+    totalAmountExpected = totalAmountExpected + amountExpected;
+  }
 }

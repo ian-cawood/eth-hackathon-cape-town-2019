@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import getWeb3, { getGanacheWeb3 } from './utils/getWeb3'
+import moment from 'moment';
 
 import Page1 from './components/page1.jsx'
 import Page2 from './components/page2.jsx'
@@ -99,7 +100,7 @@ class App extends Component {
         // await this.openSupplierVote();
         // const supplier = await this.voteForSupplier('0x809B8d2FABFb5534234F497deE71Cc7B7e0f5ddf', '0x76ba9aA08b7d91395E199CDc21887BF9DCcFF9EF');
         // console.log(supplier)
-        // await this.getWinningSupplier();
+        // await this.calculateChosenSupplier();
       }
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -110,10 +111,10 @@ class App extends Component {
     }
   }
 
-  getWinningSupplier = async () => {
+  calculateChosenSupplier = async () => {
     const { contract } = this.state
     try {
-      return contract.methods.getWinningSupplier().call()
+      return contract.methods.calculateChosenSupplier().call()
     } catch (e) {
       alert(e.message)
     }
@@ -123,21 +124,29 @@ class App extends Component {
     const { contract } = this.state
 
     try {
-      return contract.methods
+      await contract.methods
         .voteForSupplier(supplierAddress)
         .send({ from: fromAddress })
+      return true
     } catch (e) {
       alert(e.message)
+      return false
     }
   }
 
   openSupplierVote = async () => {
     const { contract } = this.state
 
+    const votingEndDate = moment().add(10, 'minutes')
+    console.log(votingEndDate.unix())
+    console.log(moment().unix())
+
     try {
-      return contract.methods.openSupplierVote(+new Date() + 1000).call()
+      await contract.methods.openSupplierVote(votingEndDate.unix()).call()
+      return true
     } catch (e) {
       alert(e.message)
+      return true
     }
   }
 
