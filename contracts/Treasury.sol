@@ -105,4 +105,21 @@ contract Treasury is Initializable {
     totalAmountExpected = totalAmountExpected + amountExpected;
   }
 
+  struct SupplierWithVote {
+    address _address;
+    string name;
+    uint votes;
+  }
+
+  function getSuppliers() public view returns (SupplierWithVote[] memory) {
+    uint supplierLength = suppliers.length;
+    SupplierWithVote[] memory suppliersWithVote = new SupplierWithVote[](supplierLength);
+
+    for (uint i; i < supplierLength; i++) {
+      SupplierWithVote memory supplierWithVote = SupplierWithVote(suppliers[i]._address, suppliers[i].name, supplierVote[suppliers[i]._address]);
+      suppliersWithVote[i] = supplierWithVote;
+    }
+
+    return suppliersWithVote;
+  }
 }
