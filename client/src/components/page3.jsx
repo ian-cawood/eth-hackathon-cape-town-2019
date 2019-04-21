@@ -2,7 +2,7 @@ import React from 'react'
 
 import './page3.css'
 
-const page3 = () => {
+const page3 = ({ booksDeliveredPercentage, daysToVotingClose }) => {
   return (
     <div>
       <section>
@@ -39,9 +39,9 @@ const page3 = () => {
           </article>
           <article className="page3-container">
             <h3>Books delivered: </h3>
-            <div className="page3-label">2</div>
+            <div className="page3-label">{booksDeliveredPercentage}</div>
             <h3>Days Left:</h3>
-            <div className="page3-label">2</div>
+            <div className="page3-label">{daysToVotingClose}</div>
           </article>
         </main>
       </section>

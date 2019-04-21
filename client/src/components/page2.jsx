@@ -1,7 +1,7 @@
 import React from 'react'
 import './page2.css'
 
-const page2 = () => {
+const page2 = ({ winningSupplier, deadlineDate, daysToCompletion }) => {
   return (
     <section>
       <header className="page2-header">
@@ -13,13 +13,13 @@ const page2 = () => {
       <main className="page2-wrapper">
         <header className="page2-container1">
           <h3>Winning Supplier:</h3>
-          <h1 className="page2-winner"> SUPPLIER X</h1>
+          <h1 className="page2-winner"> {winningSupplier.name}</h1>
         </header>
         <article className="page2-container2">
           <h3>Deadline to complete:</h3>
-          <p className="page2-label">2</p>
+          <p className="page2-label">{deadlineDate.date}</p>
           <h3>Days to completion:</h3>
-          <div className="page2-label">2</div>
+          <div className="page2-label">{daysToCompletion}</div>
         </article>
       </main>
     </section>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import getWeb3, { getGanacheWeb3 } from './utils/getWeb3'
-import moment from 'moment';
+import moment from 'moment'
 
 import Page1 from './components/page1.jsx'
 import Page2 from './components/page2.jsx'
@@ -161,14 +161,21 @@ class App extends Component {
           handleSubmit={() => {
             console.log('submission complete')
           }}
+          daysToVotingClose={'22 days'}
         />
-        <Page2 />
+        <Page2
+          winningSupplier={{ name: 'Bic' }}
+          deadlineDate={{ date: '21 April 2019' }}
+          daysToCompletion={'22 days'}
+        />
         <Page3
           handleSubmit={() => {
             console.log('submission complete')
           }}
+          booksDeliveredPercentage={'70%'}
+          daysToVotingClose={'22 days'}
         />
-        <Page4 />
+        <Page4 outcome={'failure'} />
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React from 'react'
 
 import './page1.css'
 
-const page1 = ({ suppliers }) => {
+const page1 = ({ suppliers, daysToVotingClose }) => {
   return (
     <div>
       <header className="page1-header">
@@ -57,7 +57,7 @@ const page1 = ({ suppliers }) => {
         </article>
         <article className="page1-container">
           <h3>Days Left:</h3>
-          <div className="page1-label">2</div>
+          <div className="page1-label">{daysToVotingClose}</div>
         </article>
       </section>
     </div>
