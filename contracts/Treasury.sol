@@ -25,15 +25,18 @@ contract Treasury is Initializable {
   event open_supplier_vote_event();
 
   function initialize(
+    uint contractValue,
     address[] memory schoolAddresses,
     string[] memory schoolNames,
     address[] memory supplierAddresses,
     string[] memory supplierNames,
     uint _percentageThreshold
-  ) public initializer {
+  ) public payable initializer {
     require(_percentageThreshold <= 100 && _percentageThreshold >= 0, 'Percentage must be between 0 and 100(inclusive)');
+    require(msg.value = contractValue);
     uint schoolLength = schoolAddresses.length;
     percentageThreshold = _percentageThreshold;
+    contractValue = _contractValue;
 
     for (uint i=0; i<schoolLength; i++) {
       schools.push(School(schoolAddresses[i], schoolNames[i]));
